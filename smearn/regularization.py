@@ -40,7 +40,9 @@ class BaggingEnseble:
     A class to be used to train and evaluate ensembles of neural networks using the bagging technique.
     '''
     def __init__(self, models):
-        #todo check that all the models have the same input and output shapes
+        for model in models:
+            if model.input.shape != models[0].input.shape or model.output.shape != models[0].output.shape:
+                raise Exception("All models in an ensemble must have the same input and output shapes")
 
         self.models = models
 

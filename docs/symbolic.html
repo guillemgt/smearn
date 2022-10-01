@@ -66,12 +66,9 @@ class Symbol:
 
         `parents` is a list of other symbols that will be used to compute the value of the current symbol.
 
-        TODO
-
-        `operation_f` is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value
-
-        `operation_b` is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
-        For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) -- it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])
+        Any class inheriting from this one and representing a specific operation should overload the `_op_f` and `_op_b` methods.
+        `_op_f` must return the value of the symbol (computed using the values of its parents).
+        `_op_b` must take as arguments an integer i and the gradient tensor of some other symbol with respect to the current one and return the gradient of that symbol with respect to the i-th parent of the current one.
         &#39;&#39;&#39;
         self.shape = shape
         self.value = value
@@ -157,7 +154,7 @@ class Symbol:
     def _op_f(self):
         return self.value
 
-    def _op_b(self, childs_gradient):
+    def _op_b(self, idx, childs_gradient):
         return childs_gradient
 
 
@@ -296,10 +293,9 @@ def np_parallel_transpose(A):
 <p><code>value</code> will hold its value of the tensor (after being computed if the symbol it represents is not a constant). Note that the shape of <code>value</code> may (and usually will) be different from <code>shape</code>, this is because values may be computed for batches of more than one element at a time.</p>
 <p><code>constant</code> determines whether the symbol represents a constant (which will not be optimized for during training).</p>
 <p><code>parents</code> is a list of other symbols that will be used to compute the value of the current symbol.</p>
-<p>TODO</p>
-<p><code>operation_f</code> is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value</p>
-<p><code>operation_b</code> is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
-For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) &ndash; it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])</p></div>
+<p>Any class inheriting from this one and representing a specific operation should overload the <code>_op_f</code> and <code>_op_b</code> methods.
+<code>_op_f</code> must return the value of the symbol (computed using the values of its parents).
+<code>_op_b</code> must take as arguments an integer i and the gradient tensor of some other symbol with respect to the current one and return the gradient of that symbol with respect to the i-th parent of the current one.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -319,12 +315,9 @@ For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r whe
 
         `parents` is a list of other symbols that will be used to compute the value of the current symbol.
 
-        TODO
-
-        `operation_f` is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value
-
-        `operation_b` is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
-        For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) -- it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])
+        Any class inheriting from this one and representing a specific operation should overload the `_op_f` and `_op_b` methods.
+        `_op_f` must return the value of the symbol (computed using the values of its parents).
+        `_op_b` must take as arguments an integer i and the gradient tensor of some other symbol with respect to the current one and return the gradient of that symbol with respect to the i-th parent of the current one.
         &#39;&#39;&#39;
         self.shape = shape
         self.value = value
@@ -410,7 +403,7 @@ For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r whe
     def _op_f(self):
         return self.value
 
-    def _op_b(self, childs_gradient):
+    def _op_b(self, idx, childs_gradient):
         return childs_gradient</code></pre>
 </details>
 <h3>Subclasses</h3>

@@ -1,7 +1,7 @@
 '''
 `smearn` is a small deep learning library I made to learn the fundamentals of deep learning.
 
-At the moment it can only be used to create feedforward neural networks for supervised learning, and I have no intention of expanding its functionality to handle recurrent neural networks or unsupervised learning: the goal of this project was for me to learn how to set up an easily-expandable framework for deep learning, and I think that, with how it has been set up, expanding it to handle these extra functionalities would be easy enough that I would get very little learning value from it.
+At the moment it can only be used to create feedforward neural networks for supervised learning, and I have no intention of expanding its functionality to handle recurrent neural networks or unsupervised learning. However, with how the library has been set up, expanding it to handle these extra functionalities would be straightforward.
 Moreover, needless to say, there are many better alternatives.
 
 The module is based on a symbolic treatment of the computations that a neural network performs that allows for learning using gradient methods and backpropagation. This basis is included in the `smearn.symbolic` submodule, which along with `smearn.models` is imported into the `main` smearn module.

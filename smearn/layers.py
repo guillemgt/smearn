@@ -264,7 +264,7 @@ class Softmax(Symbol):
         s = self.value
         t = np.transpose(s, axes=[*range(len(s.shape)-2)] + [len(s.shape)-1, len(s.shape)-2])
         s_diagonal = np.multiply(np.eye(s.shape[-2]), s)
-        return np.matmul(np.subtract(s_diagonal, np.matmul(s, t)), childs_gradient) #todo multiplication in the wrong order?
+        return np.matmul(np.subtract(s_diagonal, np.matmul(s, t)), childs_gradient)
 
 
 def CrossEntropy(X, Y):

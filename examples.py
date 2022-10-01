@@ -4,10 +4,15 @@ import numpy as np
 
 import smearn
 
-# Excerpt of code from github.com/karynaur/mnist-from-numpy for loading the MNIST dataset
+# Excerpt of code for loading the MNIST dataset mostly taken from github.com/karynaur/mnist-from-numpy
+
+data_path = "data"
 
 def fetch(url):
-    fp = os.path.join("data", hashlib.md5(url.encode('utf-8')).hexdigest())
+    if not os.path.exists(data_path):
+        os.makedirs(data_path)
+
+    fp = os.path.join(data_path, hashlib.md5(url.encode('utf-8')).hexdigest())
     if os.path.isfile(fp):
         with open(fp, "rb") as f:
             data = f.read()
