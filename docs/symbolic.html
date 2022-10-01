@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>smearn.symbolic API documentation</title>
+<meta name="description" content="The module `smearn.symbolic` contains the basics of symbolic manipulation on which `smearn` are based.
+It contains the basics of computation graphs …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>smearn.symbolic</code></h1>
+</header>
+<section id="section-intro">
+<p>The module <code><a title="smearn.symbolic" href="#smearn.symbolic">smearn.symbolic</a></code> contains the basics of symbolic manipulation on which <code><a title="smearn" href="index.html">smearn</a></code> are based.
+It contains the basics of computation graphs for forward and backward propagation for computing values and gradients.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#39;&#39;&#39;
+The module `smearn.symbolic` contains the basics of symbolic manipulation on which `smearn` are based.
+It contains the basics of computation graphs for forward and backward propagation for computing values and gradients.
+&#39;&#39;&#39;
+
+import numpy as np
+
+#
+# Exceptions
+#
+
+class ShapeError(Exception):
+    &#39;&#39;&#39;
+    An exception type to be passed when there is an error regarding the shapes of tensors -- for example, if trying to add two tensors of different (non-broadcastable) shapes.
+    &#39;&#39;&#39;
+    pass
+
+
+#
+# Symbolic manipulation
+#
+
+class Symbol:
+    &#39;&#39;&#39;
+    A `smearn.symbolic.Symbol` represents a node in a computation graph.
+    &#39;&#39;&#39;
+
+    def __init__(self, shape=None, parents=[], value=None, constant=False, regularization=None, value_initializers=None):
+        &#39;&#39;&#39;
+        `shape` is the shape of the tensor that the node will output
+
+        `value` will hold its value of the tensor (after being computed if the symbol it represents is not a constant). Note that the shape of `value` may (and usually will) be different from `shape`, this is because values may be computed for batches of more than one element at a time.
+
+        `constant` determines whether the symbol represents a constant (which will not be optimized for during training).
+
+        `parents` is a list of other symbols that will be used to compute the value of the current symbol.
+
+        TODO
+
+        `operation_f` is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value
+
+        `operation_b` is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
+        For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) -- it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])
+        &#39;&#39;&#39;
+        self.shape = shape
+        self.value = value
+        self.constant = constant
+        self.parents = parents
+        for parent in parents:
+            parent.children.append(self)
+        self.children = []
+        self.gradient = None
+        self.regularization = regularization
+        self.value_initializers = value_initializers
+
+    def set_value(self, value):
+        if not self.constant:
+            raise Exception(&#34;Setting the value of a constant symbol is not allowed.&#34;)
+
+        s1, t1 = remove_trailing_ones(self.shape)
+        s2, t2 = remove_trailing_ones(value.shape)
+
+        if len(s1) &gt; 0 and s1 != s2[-len(s1):]:
+            raise ShapeError(&#34;Shape {} is not broadcastable to shape {}&#34;.format(self.shape, value.shape))
+
+        self.value = value.reshape(value.shape + (t1 - t2) * (1,)) if t1 &gt;= t2 else value.reshape(value.shape[:t1-t2])
+
+        
+
+    def compute_value(self):
+        if self.value is not None:
+            return
+
+        for parent in self.parents:
+            parent.compute_value()
+
+        self.value = self._op_f()
+
+    def compute_gradients(self, batch_shape):
+        if self.gradient is not None:
+            return
+
+        self.gradient = np.zeros(batch_shape + self.shape)
+
+        for child in self.children:
+            child.compute_gradients(batch_shape)
+            v = child._op_b(child.parents.index(self), child.gradient)
+            self.gradient += v
+
+    def propagate_gradients(self, batch_shape=None):
+        if batch_shape is None:
+            self.gradient = np.ones(self.value.shape)
+            batch_shape = self.value.shape[:-len(self.shape)]
+        else:
+            self.compute_gradients(batch_shape)
+
+        for parent in self.parents:
+            parent.propagate_gradients(batch_shape)
+
+    def propagate_learning(self, optimizer):
+        if not self.constant and len(self.parents) == 0:
+            v = np.mean(self.gradient, axis=tuple([*range(len(self.gradient.shape)-2)]))
+            optimizer.apply_gradient(self)
+
+        for parent in self.parents:
+            parent.propagate_learning(optimizer)
+
+    def initialize_optimizer_for_parents(self, optimizer):
+        if not self.constant and len(self.parents) == 0:
+            optimizer.initialize_symbol(self)
+
+        for parent in self.parents:
+            parent.initialize_optimizer_for_parents(optimizer)
+
+    def reset_values_and_gradients(self, train=True):
+        if not len(self.parents) == 0:
+            self.value = None
+        elif self.value_initializers is not None:
+            self.value = self.value_initializers[0 if train else 1](self.shape)
+        
+        self.gradient = None
+
+        for parent in self.parents:
+            parent.reset_values_and_gradients()
+
+    def _op_f(self):
+        return self.value
+
+    def _op_b(self, childs_gradient):
+        return childs_gradient
+
+
+#
+# Helper functions
+#
+
+def ensure_tuple(d):
+    &#39;&#39;&#39;
+    This function returns the input if it is a tuple, and a tuple containing the input if the input is an integer.
+    &#39;&#39;&#39;
+    if type(d) is tuple:
+        return d
+
+    if type(d) is not int:
+        raise Exception(&#34;Expected a tuple or an integer&#34;)
+
+    return (d,)
+
+def remove_trailing_ones(shape):
+    &#39;&#39;&#39;
+    Removes the trailing ones from a tuple.
+    &#39;&#39;&#39;
+    i = 0
+    while len(shape) &gt; 0 and shape[-1] == 1:
+        shape = shape[:-1]
+        i += 1
+    return shape, i
+
+def np_parallel_transpose(A):
+    &#39;&#39;&#39;
+    Given a stack of matrices, this function returns the stack of matrix transposes.
+    &#39;&#39;&#39;
+    return np.einsum(&#34;...ij-&gt;...ji&#34;, A)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="smearn.symbolic.ensure_tuple"><code class="name flex">
+<span>def <span class="ident">ensure_tuple</span></span>(<span>d)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function returns the input if it is a tuple, and a tuple containing the input if the input is an integer.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ensure_tuple(d):
+    &#39;&#39;&#39;
+    This function returns the input if it is a tuple, and a tuple containing the input if the input is an integer.
+    &#39;&#39;&#39;
+    if type(d) is tuple:
+        return d
+
+    if type(d) is not int:
+        raise Exception(&#34;Expected a tuple or an integer&#34;)
+
+    return (d,)</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.np_parallel_transpose"><code class="name flex">
+<span>def <span class="ident">np_parallel_transpose</span></span>(<span>A)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given a stack of matrices, this function returns the stack of matrix transposes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def np_parallel_transpose(A):
+    &#39;&#39;&#39;
+    Given a stack of matrices, this function returns the stack of matrix transposes.
+    &#39;&#39;&#39;
+    return np.einsum(&#34;...ij-&gt;...ji&#34;, A)</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.remove_trailing_ones"><code class="name flex">
+<span>def <span class="ident">remove_trailing_ones</span></span>(<span>shape)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes the trailing ones from a tuple.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_trailing_ones(shape):
+    &#39;&#39;&#39;
+    Removes the trailing ones from a tuple.
+    &#39;&#39;&#39;
+    i = 0
+    while len(shape) &gt; 0 and shape[-1] == 1:
+        shape = shape[:-1]
+        i += 1
+    return shape, i</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="smearn.symbolic.ShapeError"><code class="flex name class">
+<span>class <span class="ident">ShapeError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An exception type to be passed when there is an error regarding the shapes of tensors &ndash; for example, if trying to add two tensors of different (non-broadcastable) shapes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShapeError(Exception):
+    &#39;&#39;&#39;
+    An exception type to be passed when there is an error regarding the shapes of tensors -- for example, if trying to add two tensors of different (non-broadcastable) shapes.
+    &#39;&#39;&#39;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="smearn.symbolic.Symbol"><code class="flex name class">
+<span>class <span class="ident">Symbol</span></span>
+<span>(</span><span>shape=None, parents=[], value=None, constant=False, regularization=None, value_initializers=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A <code><a title="smearn.symbolic.Symbol" href="#smearn.symbolic.Symbol">Symbol</a></code> represents a node in a computation graph.</p>
+<p><code>shape</code> is the shape of the tensor that the node will output</p>
+<p><code>value</code> will hold its value of the tensor (after being computed if the symbol it represents is not a constant). Note that the shape of <code>value</code> may (and usually will) be different from <code>shape</code>, this is because values may be computed for batches of more than one element at a time.</p>
+<p><code>constant</code> determines whether the symbol represents a constant (which will not be optimized for during training).</p>
+<p><code>parents</code> is a list of other symbols that will be used to compute the value of the current symbol.</p>
+<p>TODO</p>
+<p><code>operation_f</code> is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value</p>
+<p><code>operation_b</code> is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
+For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) &ndash; it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Symbol:
+    &#39;&#39;&#39;
+    A `smearn.symbolic.Symbol` represents a node in a computation graph.
+    &#39;&#39;&#39;
+
+    def __init__(self, shape=None, parents=[], value=None, constant=False, regularization=None, value_initializers=None):
+        &#39;&#39;&#39;
+        `shape` is the shape of the tensor that the node will output
+
+        `value` will hold its value of the tensor (after being computed if the symbol it represents is not a constant). Note that the shape of `value` may (and usually will) be different from `shape`, this is because values may be computed for batches of more than one element at a time.
+
+        `constant` determines whether the symbol represents a constant (which will not be optimized for during training).
+
+        `parents` is a list of other symbols that will be used to compute the value of the current symbol.
+
+        TODO
+
+        `operation_f` is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value
+
+        `operation_b` is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
+        For example, say we have two functions f: R^p -&gt; R^q and g: R^q -&gt; R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) -- it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])
+        &#39;&#39;&#39;
+        self.shape = shape
+        self.value = value
+        self.constant = constant
+        self.parents = parents
+        for parent in parents:
+            parent.children.append(self)
+        self.children = []
+        self.gradient = None
+        self.regularization = regularization
+        self.value_initializers = value_initializers
+
+    def set_value(self, value):
+        if not self.constant:
+            raise Exception(&#34;Setting the value of a constant symbol is not allowed.&#34;)
+
+        s1, t1 = remove_trailing_ones(self.shape)
+        s2, t2 = remove_trailing_ones(value.shape)
+
+        if len(s1) &gt; 0 and s1 != s2[-len(s1):]:
+            raise ShapeError(&#34;Shape {} is not broadcastable to shape {}&#34;.format(self.shape, value.shape))
+
+        self.value = value.reshape(value.shape + (t1 - t2) * (1,)) if t1 &gt;= t2 else value.reshape(value.shape[:t1-t2])
+
+        
+
+    def compute_value(self):
+        if self.value is not None:
+            return
+
+        for parent in self.parents:
+            parent.compute_value()
+
+        self.value = self._op_f()
+
+    def compute_gradients(self, batch_shape):
+        if self.gradient is not None:
+            return
+
+        self.gradient = np.zeros(batch_shape + self.shape)
+
+        for child in self.children:
+            child.compute_gradients(batch_shape)
+            v = child._op_b(child.parents.index(self), child.gradient)
+            self.gradient += v
+
+    def propagate_gradients(self, batch_shape=None):
+        if batch_shape is None:
+            self.gradient = np.ones(self.value.shape)
+            batch_shape = self.value.shape[:-len(self.shape)]
+        else:
+            self.compute_gradients(batch_shape)
+
+        for parent in self.parents:
+            parent.propagate_gradients(batch_shape)
+
+    def propagate_learning(self, optimizer):
+        if not self.constant and len(self.parents) == 0:
+            v = np.mean(self.gradient, axis=tuple([*range(len(self.gradient.shape)-2)]))
+            optimizer.apply_gradient(self)
+
+        for parent in self.parents:
+            parent.propagate_learning(optimizer)
+
+    def initialize_optimizer_for_parents(self, optimizer):
+        if not self.constant and len(self.parents) == 0:
+            optimizer.initialize_symbol(self)
+
+        for parent in self.parents:
+            parent.initialize_optimizer_for_parents(optimizer)
+
+    def reset_values_and_gradients(self, train=True):
+        if not len(self.parents) == 0:
+            self.value = None
+        elif self.value_initializers is not None:
+            self.value = self.value_initializers[0 if train else 1](self.shape)
+        
+        self.gradient = None
+
+        for parent in self.parents:
+            parent.reset_values_and_gradients()
+
+    def _op_f(self):
+        return self.value
+
+    def _op_b(self, childs_gradient):
+        return childs_gradient</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="smearn.layers.Add" href="layers.html#smearn.layers.Add">Add</a></li>
+<li><a title="smearn.layers.HadamardProduct" href="layers.html#smearn.layers.HadamardProduct">HadamardProduct</a></li>
+<li><a title="smearn.layers.Input" href="layers.html#smearn.layers.Input">Input</a></li>
+<li><a title="smearn.layers.Log" href="layers.html#smearn.layers.Log">Log</a></li>
+<li><a title="smearn.layers.MatrixProduct" href="layers.html#smearn.layers.MatrixProduct">MatrixProduct</a></li>
+<li><a title="smearn.layers.Negate" href="layers.html#smearn.layers.Negate">Negate</a></li>
+<li><a title="smearn.layers.OneMinus" href="layers.html#smearn.layers.OneMinus">OneMinus</a></li>
+<li><a title="smearn.layers.ReLU" href="layers.html#smearn.layers.ReLU">ReLU</a></li>
+<li><a title="smearn.layers.SelfDot" href="layers.html#smearn.layers.SelfDot">SelfDot</a></li>
+<li><a title="smearn.layers.Sigmoid" href="layers.html#smearn.layers.Sigmoid">Sigmoid</a></li>
+<li><a title="smearn.layers.Softmax" href="layers.html#smearn.layers.Softmax">Softmax</a></li>
+<li><a title="smearn.layers.Subtract" href="layers.html#smearn.layers.Subtract">Subtract</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="smearn.symbolic.Symbol.compute_gradients"><code class="name flex">
+<span>def <span class="ident">compute_gradients</span></span>(<span>self, batch_shape)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_gradients(self, batch_shape):
+    if self.gradient is not None:
+        return
+
+    self.gradient = np.zeros(batch_shape + self.shape)
+
+    for child in self.children:
+        child.compute_gradients(batch_shape)
+        v = child._op_b(child.parents.index(self), child.gradient)
+        self.gradient += v</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.Symbol.compute_value"><code class="name flex">
+<span>def <span class="ident">compute_value</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_value(self):
+    if self.value is not None:
+        return
+
+    for parent in self.parents:
+        parent.compute_value()
+
+    self.value = self._op_f()</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.Symbol.initialize_optimizer_for_parents"><code class="name flex">
+<span>def <span class="ident">initialize_optimizer_for_parents</span></span>(<span>self, optimizer)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def initialize_optimizer_for_parents(self, optimizer):
+    if not self.constant and len(self.parents) == 0:
+        optimizer.initialize_symbol(self)
+
+    for parent in self.parents:
+        parent.initialize_optimizer_for_parents(optimizer)</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.Symbol.propagate_gradients"><code class="name flex">
+<span>def <span class="ident">propagate_gradients</span></span>(<span>self, batch_shape=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def propagate_gradients(self, batch_shape=None):
+    if batch_shape is None:
+        self.gradient = np.ones(self.value.shape)
+        batch_shape = self.value.shape[:-len(self.shape)]
+    else:
+        self.compute_gradients(batch_shape)
+
+    for parent in self.parents:
+        parent.propagate_gradients(batch_shape)</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.Symbol.propagate_learning"><code class="name flex">
+<span>def <span class="ident">propagate_learning</span></span>(<span>self, optimizer)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def propagate_learning(self, optimizer):
+    if not self.constant and len(self.parents) == 0:
+        v = np.mean(self.gradient, axis=tuple([*range(len(self.gradient.shape)-2)]))
+        optimizer.apply_gradient(self)
+
+    for parent in self.parents:
+        parent.propagate_learning(optimizer)</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.Symbol.reset_values_and_gradients"><code class="name flex">
+<span>def <span class="ident">reset_values_and_gradients</span></span>(<span>self, train=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_values_and_gradients(self, train=True):
+    if not len(self.parents) == 0:
+        self.value = None
+    elif self.value_initializers is not None:
+        self.value = self.value_initializers[0 if train else 1](self.shape)
+    
+    self.gradient = None
+
+    for parent in self.parents:
+        parent.reset_values_and_gradients()</code></pre>
+</details>
+</dd>
+<dt id="smearn.symbolic.Symbol.set_value"><code class="name flex">
+<span>def <span class="ident">set_value</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_value(self, value):
+    if not self.constant:
+        raise Exception(&#34;Setting the value of a constant symbol is not allowed.&#34;)
+
+    s1, t1 = remove_trailing_ones(self.shape)
+    s2, t2 = remove_trailing_ones(value.shape)
+
+    if len(s1) &gt; 0 and s1 != s2[-len(s1):]:
+        raise ShapeError(&#34;Shape {} is not broadcastable to shape {}&#34;.format(self.shape, value.shape))
+
+    self.value = value.reshape(value.shape + (t1 - t2) * (1,)) if t1 &gt;= t2 else value.reshape(value.shape[:t1-t2])</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="smearn" href="index.html">smearn</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="smearn.symbolic.ensure_tuple" href="#smearn.symbolic.ensure_tuple">ensure_tuple</a></code></li>
+<li><code><a title="smearn.symbolic.np_parallel_transpose" href="#smearn.symbolic.np_parallel_transpose">np_parallel_transpose</a></code></li>
+<li><code><a title="smearn.symbolic.remove_trailing_ones" href="#smearn.symbolic.remove_trailing_ones">remove_trailing_ones</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="smearn.symbolic.ShapeError" href="#smearn.symbolic.ShapeError">ShapeError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="smearn.symbolic.Symbol" href="#smearn.symbolic.Symbol">Symbol</a></code></h4>
+<ul class="">
+<li><code><a title="smearn.symbolic.Symbol.compute_gradients" href="#smearn.symbolic.Symbol.compute_gradients">compute_gradients</a></code></li>
+<li><code><a title="smearn.symbolic.Symbol.compute_value" href="#smearn.symbolic.Symbol.compute_value">compute_value</a></code></li>
+<li><code><a title="smearn.symbolic.Symbol.initialize_optimizer_for_parents" href="#smearn.symbolic.Symbol.initialize_optimizer_for_parents">initialize_optimizer_for_parents</a></code></li>
+<li><code><a title="smearn.symbolic.Symbol.propagate_gradients" href="#smearn.symbolic.Symbol.propagate_gradients">propagate_gradients</a></code></li>
+<li><code><a title="smearn.symbolic.Symbol.propagate_learning" href="#smearn.symbolic.Symbol.propagate_learning">propagate_learning</a></code></li>
+<li><code><a title="smearn.symbolic.Symbol.reset_values_and_gradients" href="#smearn.symbolic.Symbol.reset_values_and_gradients">reset_values_and_gradients</a></code></li>
+<li><code><a title="smearn.symbolic.Symbol.set_value" href="#smearn.symbolic.Symbol.set_value">set_value</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
