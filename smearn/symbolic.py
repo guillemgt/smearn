@@ -35,12 +35,9 @@ class Symbol:
 
         `parents` is a list of other symbols that will be used to compute the value of the current symbol.
 
-        TODO
-
-        `operation_f` is the function that computes the value of the symbol from its parents, it takes as arguments the array of parents and outputs the value
-
-        `operation_b` is the function that will be used for backpropagation. The first two arguments are the array of parent symbols and an index i for this array. The second argument is the gradient of the symbol, and the function returns the gradient of the desired gradient with respect to the i-th parent.
-        For example, say we have two functions f: R^p -> R^q and g: R^q -> R^r where p, q and r are shapes, and the symbol represents the intermediate value in R^q. We have previously computed the gradient of g, call it grad(g) -- it is a tensor of shape r + q whose (i,j) entry represents the derivative of the i-th entry in R^r with respect to the j-th variable in R^q (one could equally consider it as a tensor of shape q + r, but we use the former convention since it works better with numpy). Then, the operation_b corresponding to f (note that there is only one parent) computes grad(gf) = grad(g) . grad(f) (explicitly, grad(gf)[i,k] = sum_j grad(g)[i,j] grad(f)[j,k])
+        Any class inheriting from this one and representing a specific operation should overload the `_op_f` and `_op_b` methods.
+        `_op_f` must return the value of the symbol (computed using the values of its parents).
+        `_op_b` must take as arguments an integer i and the gradient tensor of some other symbol with respect to the current one and return the gradient of that symbol with respect to the i-th parent of the current one.
         '''
         self.shape = shape
         self.value = value
@@ -126,7 +123,7 @@ class Symbol:
     def _op_f(self):
         return self.value
 
-    def _op_b(self, childs_gradient):
+    def _op_b(self, idx, childs_gradient):
         return childs_gradient
 
 
