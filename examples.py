@@ -4,6 +4,8 @@ import numpy as np
 
 import smearn
 
+# Excerpt of code from github.com/karynaur/mnist-from-numpy for loading the MNIST dataset
+
 def fetch(url):
     fp = os.path.join("data", hashlib.md5(url.encode('utf-8')).hexdigest())
     if os.path.isfile(fp):
@@ -20,6 +22,10 @@ Y = fetch("http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz")[8:]
 X_test = fetch("http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz")[0x10:].reshape((-1, 28*28))
 Y_test = fetch("http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz")[8:]
 
+
+
+# Smearn code
+
 Y_onehot = np.zeros(Y.shape + (10,))
 Y_onehot[np.arange(Y.shape[0]), Y] = 1.0
 
@@ -27,6 +33,10 @@ def test_model_accuracy(model, X_test, Y_test):
     Y_pred = model.evaluate(X_test).argmax(axis=-2).reshape((-1,))
     return np.sum(np.where(Y_pred == Y_test, 1, 0)) / Y_test.shape[0]
 
+
+#
+# Example 1
+#
 
 print("Example 1. Simple model with two hidden layers")
 
@@ -43,6 +53,10 @@ model.train(data=X, labels=Y_onehot, lr=0.01, batch_size=16, epochs=10, validati
 
 print("Test results accuracy: {}%\n".format(100 * test_model_accuracy(model, X_test, Y_test)))
 
+
+#
+# Example 2
+#
 
 print("Example 2. Bigger model with different regularizations at various layers and a linearly decaying learning rate")
 
@@ -67,6 +81,10 @@ model.train(data=X, labels=Y_onehot, lr=0.01, batch_size=256, epochs=10, validat
 
 print("Test results accuracy: {}%\n".format(100 * test_model_accuracy(model, X_test, Y_test)))
 
+
+#
+# Example 3
+#
 
 print("Example 3. Bagging ensemble")
 
